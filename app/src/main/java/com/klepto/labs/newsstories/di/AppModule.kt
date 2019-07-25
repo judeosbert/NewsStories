@@ -3,9 +3,11 @@ package com.klepto.labs.newsstories.di
 import android.app.Application
 import androidx.lifecycle.ViewModelProvider
 import com.klepto.labs.newsstories.datasources.NewsBoundaryCallback
+import com.klepto.labs.newsstories.datasources.NewsRepository
 import com.klepto.labs.newsstories.network.ApiServiceFactory
 import com.klepto.labs.newsstories.network.services.ApiService
 import com.klepto.labs.newsstories.db.DatabaseManager
+import com.klepto.labs.newsstories.fragments.HomeFragment
 import com.klepto.labs.newsstories.viewmodels.ViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -32,5 +34,6 @@ class AppModule (private var app:Application){
 
     @Provides
     @Singleton
-    fun provideNewsBoundaryCallback(mApiService: ApiService,mDbManager: DatabaseManager):NewsBoundaryCallback = NewsBoundaryCallback(mApiService, mDbManager)
+    fun providesNewsRepository(mApiService: ApiService,mDbManager: DatabaseManager):NewsRepository = NewsRepository(mApiService, mDbManager)
+
 }

@@ -2,6 +2,7 @@ package com.klepto.labs.newsstories
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -9,42 +10,31 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.klepto.labs.newsstories.adapter.NewsListAdapter
+import com.klepto.labs.newsstories.fragments.HomeFragment
 import com.klepto.labs.newsstories.viewmodels.NewsViewModel
 import com.klepto.labs.newsstories.viewmodels.ViewModelFactory
 import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity(),HasSupportFragmentInjector {
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    lateinit var mViewModel:NewsViewModel
-    private val mAdapter = NewsListAdapter()
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        AndroidInjection.inject(this)
-
-        setupObservers()
-        initView()
+        switchFragment()
+    }
+    private fun switchFragment(){
+        supportFragmentManager.beginTransaction().replace(R.id.frameContainer,HomeFragment()).commit()
     }
 
-    private fun setupObservers(){
-        mViewModel = ViewModelProviders.of(this,viewModelFactory)
-            .get(NewsViewModel::class.java)
 
-        mViewModel.getArticlesLiveData().observe(this, Observer {
-            mAdapter.submitList(it)
-        })
-    }
+    override fun supportFragmentInjector(): AndroidInjector<Fragment>  = dispatchingAndroidInjector
 
-    private fun initView(){
-        newsRvList.layoutManager = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
-        newsRvList.itemAnimator = DefaultItemAnimator()
-        val snapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(newsRvList)
-        newsRvList.adapter = mAdapter
-
-    }
 }

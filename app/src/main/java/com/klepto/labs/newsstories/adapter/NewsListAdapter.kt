@@ -23,24 +23,31 @@ class NewsListAdapter:PagedListAdapter<Article,NewsListAdapter.NewsItemViewHolde
         val article = getItem(position)
         article?.let {
             with(holder){
-                authorName.text = it.author
-                description.text = it.description
+                description.text = cleanContent(it.content)
                 title.text = it.title
-                title.text = it.title
-
                     Glide.with(image).load(it.urlToImage)
                         .into(image)
-
-
+                timestamp.text = "swipe left for more at ${article.source?.source_name}/ 5 mins ago"
             }
+
         }
     }
 
+    private fun cleanContent(content:String?):String{
+        content?.let {
+            return it.replace("([+[0-9]+ chars])","")
+        }
+        return ""
+    }
+
     inner class NewsItemViewHolder(view: View):RecyclerView.ViewHolder(view){
-        val authorName = view.findViewById<TextView>(R.id.authorName)
         val description = view.findViewById<TextView>(R.id.descriptionText)
         val title = view.findViewById<TextView>(R.id.titleText)
         val timestamp = view.findViewById<TextView>(R.id.timestampText)
         val image = view.findViewById<ImageView>(R.id.bgImage)
+    }
+
+    fun getItemUrl(position: Int):String{
+        return getItem(position)?.url?:""
     }
 }
