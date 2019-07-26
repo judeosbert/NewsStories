@@ -1,8 +1,9 @@
-package com.klepto.labs.newsapp.base
+package com.klepto.labs.newsstories.base
 
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import com.klepto.labs.newsstories.di.AppComponent
 import com.klepto.labs.newsstories.di.AppModule
 import com.klepto.labs.newsstories.di.DaggerAppComponent
 import dagger.android.AndroidInjector
@@ -20,17 +21,20 @@ class BaseApplication:Application(),HasActivityInjector {
         instance = this
     }
     companion object{
+        var appComponent:AppComponent?=null
         private var instance: BaseApplication? = null
         fun applicationContext() : Context {
             return instance!!.applicationContext
         }
+
     }
     override fun onCreate() {
         super.onCreate()
 
-        DaggerAppComponent.builder()
+        appComponent = DaggerAppComponent.builder()
             .appModule(AppModule(this))
             .build()
-            .inject(this)
+        appComponent?.inject(this)
+
     }
 }

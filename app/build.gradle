@@ -16,6 +16,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -35,6 +40,7 @@ dependencies {
     def room_version = "1.1.1"
     def dagger_version = "2.23.2"
     def design_version = "28.0.0"
+    def powermock_version = "2.0.2"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -61,6 +67,11 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
     implementation "com.android.support:design:$design_version"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
+    testImplementation "org.powermock:powermock-module-junit4:${powermock_version}"
+    testImplementation "org.powermock:powermock-module-junit4-rule:${powermock_version}"
+    testImplementation "org.powermock:powermock-api-mockito2:${powermock_version}"
+    testImplementation "org.powermock:powermock-classloading-xstream:${powermock_version}"
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

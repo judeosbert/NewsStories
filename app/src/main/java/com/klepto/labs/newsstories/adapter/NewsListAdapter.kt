@@ -12,9 +12,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.klepto.labs.newsstories.R
 import com.klepto.labs.newsstories.db.models.Article
+import com.klepto.labs.newsstories.utils.getRelativeTimeString
 
 class NewsListAdapter:PagedListAdapter<Article,NewsListAdapter.NewsItemViewHolder>(NewsDiffUtil()) {
+
+   private lateinit var mContext:Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsItemViewHolder {
+        mContext = parent.context
         return NewsItemViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.news_rv_item,parent,false)
         )
@@ -24,22 +28,18 @@ class NewsListAdapter:PagedListAdapter<Article,NewsListAdapter.NewsItemViewHolde
         val article = getItem(position)
         article?.let {
             with(holder){
-                description.text = cleanContent(it.content)
+                description.text = it.description
                 title.text = it.title
                     Glide.with(image).load(it.urlToImage)
                         .apply(RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.placeholder))
                         .into(image)
-                timestamp.text = "swipe left for more at ${article.source?.source_name}/ 5 mins ago"
+                val res = mContext.resources
+                val source = it.source?.source_name?:""
+                val relativeTimestamp:String = getRelativeTimeString(it.publishedAt?:"")
+                timestamp.text = res.getString(R.string.swipe_more_hint,source,relativeTimestamp)
             }
 
         }
-    }
-
-    private fun cleanContent(content:String?):String{
-        content?.let {
-            return it.replace("([+[0-9]+ chars])","")
-        }
-        return ""
     }
 
     inner class NewsItemViewHolder(view: View):RecyclerView.ViewHolder(view){

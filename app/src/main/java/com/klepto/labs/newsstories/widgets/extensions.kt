@@ -3,7 +3,7 @@ package com.klepto.labs.newsstories.widgets
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
-import com.klepto.labs.newsapp.base.BaseApplication
+import com.klepto.labs.newsstories.base.BaseApplication
 
 fun SnapHelper.getSnapPosition(recyclerView: RecyclerView): Int {
     val layoutManager = recyclerView.layoutManager ?: return RecyclerView.NO_POSITION

@@ -10,6 +10,6 @@ interface ApiService {
     @GET("top-headlines")
     fun getTopHeadlines(@Query("country") country:String="in"
                         ,@Query("apiKey") apiKey:String = NEWS_API_KEY
-                        ,@Query("p") pageNumber:Int = 1
+                        ,@Query("page") pageNumber:Int = 1
     ):Observable<BaseResponse>
 }

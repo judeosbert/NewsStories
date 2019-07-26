@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModelProvider
 import com.klepto.labs.newsstories.datasources.NewsBoundaryCallback
 import com.klepto.labs.newsstories.datasources.NewsRepository
+import com.klepto.labs.newsstories.datasources.SharedPrefManager
 import com.klepto.labs.newsstories.network.ApiServiceFactory
 import com.klepto.labs.newsstories.network.services.ApiService
 import com.klepto.labs.newsstories.db.DatabaseManager
@@ -34,6 +35,11 @@ class AppModule (private var app:Application){
 
     @Provides
     @Singleton
-    fun providesNewsRepository(mApiService: ApiService,mDbManager: DatabaseManager):NewsRepository = NewsRepository(mApiService, mDbManager)
+    fun providesNewsRepository(mApiService: ApiService,mDbManager: DatabaseManager,sharedPrefManager: SharedPrefManager)
+            :NewsRepository = NewsRepository(mApiService, mDbManager,sharedPrefManager)
+
+    @Provides
+    @Singleton
+    fun providesSharedPrefenceManager() = SharedPrefManager()
 
 }

@@ -1,6 +1,6 @@
 package com.klepto.labs.newsstories.di
 
-import com.klepto.labs.newsapp.base.BaseApplication
+import com.klepto.labs.newsstories.base.BaseApplication
 import com.klepto.labs.newsstories.datasources.NewsBoundaryCallback
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -13,5 +13,6 @@ import javax.inject.Singleton
 )
 interface AppComponent {
 
-    fun inject(app:BaseApplication)
+    fun inject(instance: BaseApplication)
+    fun inject(instance: NewsBoundaryCallback)
 }
