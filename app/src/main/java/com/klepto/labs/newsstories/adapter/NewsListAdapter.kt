@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.klepto.labs.newsstories.R
 import com.klepto.labs.newsstories.db.models.Article
 
@@ -26,6 +27,7 @@ class NewsListAdapter:PagedListAdapter<Article,NewsListAdapter.NewsItemViewHolde
                 description.text = cleanContent(it.content)
                 title.text = it.title
                     Glide.with(image).load(it.urlToImage)
+                        .apply(RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.placeholder))
                         .into(image)
                 timestamp.text = "swipe left for more at ${article.source?.source_name}/ 5 mins ago"
             }
