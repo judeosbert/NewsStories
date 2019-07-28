@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.klepto.labs.newsstories.R
 import com.klepto.labs.newsstories.db.models.Article
@@ -31,11 +32,14 @@ class NewsListAdapter:PagedListAdapter<Article,NewsListAdapter.NewsItemViewHolde
                 description.text = it.description
                 title.text = it.title
                     Glide.with(image).load(it.urlToImage)
-                        .apply(RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.placeholder))
+                        .apply(RequestOptions()
+                            .placeholder(R.drawable.placeholder)
+                            .error(R.drawable.placeholder)
+                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
                         .into(image)
                 val res = mContext.resources
                 val source = it.source?.source_name?:""
-                val relativeTimestamp:String = getRelativeTimeString(it.publishedAt?:"")
+                val relativeTimestamp:String = getRelativeTimeString(it.publishedAt)
                 timestamp.text = res.getString(R.string.swipe_more_hint,source,relativeTimestamp)
             }
 
