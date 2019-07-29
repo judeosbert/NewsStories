@@ -3,7 +3,7 @@ package com.klepto.labs.newsstories.datasources
 import com.klepto.labs.newsstories.base.BaseApplication
 import com.klepto.labs.newsstories.SHARED_PREF_KEY_NEXT_PAGE
 
-class SharedPrefManager{
+class SharedPrefManager(){
     private val sharedPref  = BaseApplication.applicationContext().getSharedPreferences("base_sharedpreference",0)
     private val editor = sharedPref.edit()
 

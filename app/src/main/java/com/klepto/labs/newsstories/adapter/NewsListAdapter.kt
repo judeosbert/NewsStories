@@ -35,7 +35,7 @@ class NewsListAdapter:PagedListAdapter<Article,NewsListAdapter.NewsItemViewHolde
                 description.text = it.description
                 title.text = it.title
                 image.setImageDrawable(mContext.getDrawable(R.drawable.placeholder))
-                mCacheManager.setBitmap(it.urlToImage?:"",it.urlToImage?:"",mContext,image);
+                mCacheManager.setImage(it.urlToImage?:"",it.urlToImage?:"",mContext,image)
                 val res = mContext.resources
                 val source = it.source?.source_name?:""
                 val relativeTimestamp:String = getRelativeTimeString(it.publishedAt)
