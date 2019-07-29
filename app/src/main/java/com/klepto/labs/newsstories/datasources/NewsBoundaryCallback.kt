@@ -21,15 +21,12 @@ class NewsBoundaryCallback (private val mApiService:ApiService, private val mDbM
 
     override fun onZeroItemsLoaded() {
         helper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL){helperCallback->
-            Log.d("JUDE"," Fetching Page Zero ${mSharedPrefManager.nextPageToFetch}")
-
             mDisposable =mApiService.getTopHeadlines(pageNumber =  mSharedPrefManager.nextPageToFetch)
                     .subscribeOn(Schedulers.io())
                     .subscribeBy(
                         onNext = {
                             it.articles?.let {list->
                                 mSharedPrefManager.nextPageToFetch += 1
-                                Log.d("JUDE","Next Page to Fetch Zero${mSharedPrefManager.nextPageToFetch}")
                                 mDbManager.dbInstance.articleDao().insertArticles(list)
                                     helperCallback.recordSuccess()
                             }
@@ -39,7 +36,6 @@ class NewsBoundaryCallback (private val mApiService:ApiService, private val mDbM
                             helperCallback.recordFailure(it)
                         },
                         onComplete = {
-                            println("Completed Initial Load")
                         }
                     )
         }
@@ -47,7 +43,6 @@ class NewsBoundaryCallback (private val mApiService:ApiService, private val mDbM
 
     override fun onItemAtEndLoaded(itemAtEnd: Article) {
         helper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER){helperCallback->
-            Log.d("JUDE"," Fetching Page ${mSharedPrefManager.nextPageToFetch}")
             mDisposable =mApiService.getTopHeadlines(pageNumber =  mSharedPrefManager.nextPageToFetch)
                 .subscribeOn(Schedulers.io())
                 .subscribeBy(
@@ -55,7 +50,6 @@ class NewsBoundaryCallback (private val mApiService:ApiService, private val mDbM
 
                         it.articles?.let {list->
                             mSharedPrefManager.nextPageToFetch += 1
-                            Log.d("JUDE","Next Page to Fetch ${mSharedPrefManager.nextPageToFetch}")
                             mDbManager.dbInstance.articleDao().insertArticles(list)
                             helperCallback.recordSuccess()
                         }
@@ -66,7 +60,6 @@ class NewsBoundaryCallback (private val mApiService:ApiService, private val mDbM
 
                     },
                     onComplete = {
-                        println("Completed Initial Load")
                     }
                 )
         }

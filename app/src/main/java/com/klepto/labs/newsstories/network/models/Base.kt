@@ -1,4 +1,4 @@
-package com.klepto.labs.newsapp.network.models
+package com.klepto.labs.newsstories.network.models
 
 import com.google.gson.annotations.SerializedName
 import com.klepto.labs.newsstories.db.models.Article

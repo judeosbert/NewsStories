@@ -3,14 +3,16 @@ package com.klepto.labs.newsstories.fragments
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.*
-
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.klepto.labs.newsstories.R
 import com.klepto.labs.newsstories.adapter.NewsListAdapter
 import com.klepto.labs.newsstories.viewmodels.NewsViewModel
@@ -18,7 +20,6 @@ import com.klepto.labs.newsstories.viewmodels.ViewModelFactory
 import com.klepto.labs.newsstories.widgets.OnSnapPositionChangeListener
 import com.klepto.labs.newsstories.widgets.SnapOnScrollListener
 import com.klepto.labs.newsstories.widgets.attachSnapHelperWithListener
-import com.klepto.labs.newsstories.widgets.toast
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_article_list.*
 import javax.inject.Inject

@@ -1,7 +1,7 @@
 package com.klepto.labs.newsstories.network
 
-import com.klepto.labs.newsstories.network.services.ApiService
 import com.klepto.labs.newsstories.BASE_URL
+import com.klepto.labs.newsstories.network.services.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

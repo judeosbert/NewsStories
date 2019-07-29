@@ -11,7 +11,6 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_article_details.*
 import kotlinx.android.synthetic.main.fragment_article_details.view.*
-import retrofit2.http.Url
 import java.net.URL
 
 
