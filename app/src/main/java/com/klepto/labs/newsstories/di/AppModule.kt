@@ -9,6 +9,7 @@ import com.klepto.labs.newsstories.network.ApiServiceFactory
 import com.klepto.labs.newsstories.network.services.ApiService
 import com.klepto.labs.newsstories.db.DatabaseManager
 import com.klepto.labs.newsstories.fragments.HomeFragment
+import com.klepto.labs.newsstories.utils.CacheManager
 import com.klepto.labs.newsstories.viewmodels.ViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -41,5 +42,9 @@ class AppModule (private var app:Application){
     @Provides
     @Singleton
     fun providesSharedPrefenceManager() = SharedPrefManager()
+
+    @Provides
+    @Singleton
+    fun provideCachemanager() = CacheManager()
 
 }

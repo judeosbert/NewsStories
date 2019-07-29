@@ -8,17 +8,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.klepto.labs.newsstories.R
+import com.klepto.labs.newsstories.base.BaseApplication
 import com.klepto.labs.newsstories.db.models.Article
+import com.klepto.labs.newsstories.utils.CacheManager
 import com.klepto.labs.newsstories.utils.getRelativeTimeString
+import javax.inject.Inject
 
 class NewsListAdapter:PagedListAdapter<Article,NewsListAdapter.NewsItemViewHolder>(NewsDiffUtil()) {
 
+    @Inject
+    lateinit var mCacheManager:CacheManager
    private lateinit var mContext:Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsItemViewHolder {
+        BaseApplication.appComponent?.inject(this)
         mContext = parent.context
         return NewsItemViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.news_rv_item,parent,false)
@@ -31,12 +34,8 @@ class NewsListAdapter:PagedListAdapter<Article,NewsListAdapter.NewsItemViewHolde
             with(holder){
                 description.text = it.description
                 title.text = it.title
-                    Glide.with(image).load(it.urlToImage)
-                        .apply(RequestOptions()
-                            .placeholder(R.drawable.placeholder)
-                            .error(R.drawable.placeholder)
-                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
-                        .into(image)
+                image.setImageDrawable(mContext.getDrawable(R.drawable.placeholder))
+                mCacheManager.setBitmap(it.urlToImage?:"",it.urlToImage?:"",mContext,image);
                 val res = mContext.resources
                 val source = it.source?.source_name?:""
                 val relativeTimestamp:String = getRelativeTimeString(it.publishedAt)
