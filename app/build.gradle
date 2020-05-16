@@ -15,6 +15,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     testOptions {
         unitTests {
@@ -70,4 +71,15 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.23.0'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+//    Greedygame
+    implementation "com.greedygame.sdkx:core:0.0.52"
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation "androidx.palette:palette:1.0.0"
+    implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.9.2")
+//This will Add the following Play service version to get ads from AdMob in the //app.gradle file. Minimum supported version for AdMob is Play Service version //18.3.0. Recommended version is  19.1.0
+
+    implementation 'com.google.android.gms:play-services-ads:19.1.0'
+
 }

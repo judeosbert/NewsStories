@@ -1,0 +1,23 @@
+<network-security-config>
+    <domain-config>
+        <domain includeSubdomains="true">go-dev.greedygame.com</domain>
+        <trust-anchors>
+            <!-- Trust user added CAs while debuggable only -->
+            <certificates src="user" />
+        </trust-anchors>
+    </domain-config>
+    <domain-config>
+        <domain includeSubdomains="true">api.greedygame.com</domain>
+        <trust-anchors>
+            <!-- Trust user added CAs while debuggable only -->
+            <certificates src="user" />
+        </trust-anchors>
+    </domain-config>
+    <domain-config>
+        <domain includeSubdomains="true">newsapi.org</domain>
+        <trust-anchors>
+            <!-- Trust user added CAs while debuggable only -->
+            <certificates src="user" />
+        </trust-anchors>
+    </domain-config>
+</network-security-config>

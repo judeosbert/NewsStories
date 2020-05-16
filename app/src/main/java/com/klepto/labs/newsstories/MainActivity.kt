@@ -1,5 +1,6 @@
 package com.klepto.labs.newsstories
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_BACK
@@ -10,6 +11,7 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
@@ -22,6 +24,9 @@ class MainActivity : AppCompatActivity(),HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         switchFragment()
+        fab.setOnClickListener {
+            startActivity(Intent(this,DiscoverActivity::class.java))
+        }
     }
     private fun switchFragment(){
         supportFragmentManager.beginTransaction().replace(R.id.frameContainer,HomeFragment()).commit()

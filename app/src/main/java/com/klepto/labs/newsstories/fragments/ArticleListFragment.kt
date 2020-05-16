@@ -9,12 +9,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.klepto.labs.newsstories.R
 import com.klepto.labs.newsstories.adapter.NewsListAdapter
+import com.klepto.labs.newsstories.db.models.Article
+import com.klepto.labs.newsstories.db.models.ArticleAd
 import com.klepto.labs.newsstories.viewmodels.NewsViewModel
 import com.klepto.labs.newsstories.viewmodels.ViewModelFactory
 import com.klepto.labs.newsstories.widgets.OnSnapPositionChangeListener
@@ -69,7 +72,7 @@ class ArticleListFragment : Fragment(), OnSnapPositionChangeListener {
         })
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
